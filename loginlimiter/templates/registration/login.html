@@ -6,16 +6,33 @@
         <a href="/"><b>LoginLimiter</b></a>
       </div><!-- /.login-logo -->
       <div class="login-box-body">
+        {% if next %}
+        {% if user.is_authenticated %}
+        <p class="login-box-msg">Your account doesn't have access to this page.
+        To proceed, please login with an account that has access.</p>
+        {% else %}
         <p class="login-box-msg">Sign in to start your session</p>
+        {% endif %}
+        {% endif %}
         <form method="post" action="{% url 'login' %}">
           {% csrf_token %}
-          <div class="form-group has-feedback">
-            <input type="email" class="form-control" name="username" placeholder="Email">
-            <span class="glyphicon glyphicon-envelope form-control-feedback"></span>
+          {% if error_message %}<p class="help-block"><strong>{{ error_message }}</strong></p>{% endif %}
+          {% for error in form.non_field_errors %}
+          <span class="help-block">{{ error }}</span>
+          {% endfor %}
+          <div class="form-group has-feedback{% if form.username.errors %} has-error{% endif %}">
+            <input type="text" name="username" class="form-control" placeholder="Username">
+            <span class="glyphicon glyphicon-user form-control-feedback"></span>
+            {% for error in  form.username.errors %}
+            <span class="help-block">{{ error }}</span>
+            {% endfor %}
           </div>
-          <div class="form-group has-feedback">
-            <input type="password" class="form-control" name="password" placeholder="Password">
+          <div class="form-group has-feedback{% if form.password.errors %} has-error{% endif %}">
+            <input type="password" name="password" class="form-control" placeholder="Password">
             <span class="glyphicon glyphicon-lock form-control-feedback"></span>
+            {% for error in  form.password.errors %}
+            <span class="help-block">{{ error }}</span>
+            {% endfor %}
           </div>
           <div class="row">
             <div class="col-xs-8">
