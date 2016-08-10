@@ -31,6 +31,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+    'loginlimiter',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -55,7 +56,9 @@ ROOT_URLCONF = 'loginlimiter.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [
+            '/srv/www/loginlimiter.atzok.com/loginlimiter/templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -120,3 +123,12 @@ USE_TZ = True
 
 STATIC_URL = '/static/'
 ADMIN_MEDIA_PREFIX = '/static/admin/'
+
+# Account settings
+LOGIN_REDIRECT_URL = '/'
+
+# Login Limiter settings
+LOCKOUT_USER_ATTEMPTS = 5
+LOCKOUT_USER_SECONDS = 60
+LOCKOUT_IP_ATTEMPTS = 30
+LOCKOUT_IP_SECONDS = 300

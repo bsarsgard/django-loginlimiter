@@ -13,9 +13,30 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-from django.conf.urls import url
+from django.conf.urls import url, include
 from django.contrib import admin
+from django.contrib.auth import views as auth_views
+from django.contrib.auth.forms import UserCreationForm
+from django.views.generic.edit import CreateView
+
+from . import views
+from forms import LimiterAuthenticationForm
+
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
+    #url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^$', views.index, name='index'),
+    url(r'^accounts/login/$', auth_views.login, {
+            'authentication_form': LimiterAuthenticationForm
+            }, name='login'),
+    url(r'^register/', CreateView.as_view(
+            template_name='registration/register.html',
+            form_class=UserCreationForm,
+            success_url='/'), name='register'),
 ]
+"""
+    url(r'^login/', LoginView.as_view(
+            template_name='registration/login.html'),
+            name='login'),
+"""
