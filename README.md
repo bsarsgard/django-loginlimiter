@@ -9,6 +9,7 @@ A sample login limiter app for django
 (the above settings are configurable in settings.py)
 
 To use, attach to you application and override the login view to use the LimiterAuthenticationForm, like so:
+
     url(r'^accounts/login/$', auth_views.login, {
             'authentication_form': LimiterAuthenticationForm
             }, name='login'),
