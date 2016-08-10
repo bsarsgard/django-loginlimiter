@@ -25,18 +25,13 @@ from forms import LimiterAuthenticationForm
 
 urlpatterns = [
     url(r'^admin/', admin.site.urls),
-    #url(r'^accounts/', include('django.contrib.auth.urls')),
     url(r'^$', views.index, name='index'),
     url(r'^accounts/login/$', auth_views.login, {
             'authentication_form': LimiterAuthenticationForm
             }, name='login'),
+    url(r'^accounts/logout/$', auth_views.logout_then_login),
     url(r'^register/', CreateView.as_view(
             template_name='registration/register.html',
             form_class=UserCreationForm,
             success_url='/'), name='register'),
 ]
-"""
-    url(r'^login/', LoginView.as_view(
-            template_name='registration/login.html'),
-            name='login'),
-"""

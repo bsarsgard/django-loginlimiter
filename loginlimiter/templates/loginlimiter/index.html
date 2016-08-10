@@ -1,1 +1,18 @@
-index
+{% extends "blank.html" %}
+{% block body-class %}login-page{% endblock %}
+{% block content %}
+    <div class="login-box">
+      <div class="login-logo">
+        <a href="/"><b>LoginLimiter</b></a>
+      </div><!-- /.login-logo -->
+      <div class="login-box-body">
+        <p class="login-box-msg">You have successfully logged in.</p>
+        <div class="row">
+          <div class="col-xs-8">
+            <a href="/accounts/logout/">Log out</a><br>
+          </div><!-- /.col -->
+        </div>
+
+      </div><!-- /.login-box-body -->
+    </div><!-- /.login-box -->
+{% endblock %}
